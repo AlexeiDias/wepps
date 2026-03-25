@@ -1,12 +1,12 @@
 import Navbar from '@/components/Navbar'
 import ProjectCard from '@/components/ProjectCard'
-import { getProjects } from '@/lib/firebase'
+import { getProjects, Project } from '@/lib/firebase'
 import Link from 'next/link'
 
 export const revalidate = 60 // ISR — refresh every 60 seconds
 
 export default async function HomePage() {
-  let projects = []
+  let projects: Project[] = []
   try {
     const all = await getProjects()
     projects = all.filter(p => p.status === 'live')
