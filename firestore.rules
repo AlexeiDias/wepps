@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Projects — public read, no write from client
+    match /projects/{id} {
+      allow read: if true;
+      allow write: if false; // writes go through admin UI (client SDK with no auth rules)
+    }
+
+    // Inquiries — public write (contact form), no public read
+    match /inquiries/{id} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+  }
+}
